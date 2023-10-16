@@ -19,9 +19,6 @@ public class LoginAction2 extends HttpServlet {
 
         //id와 pwd가 일치하는 경우 : userInfo.jsp로 연결
         if(id.equals("asdf") && pwd.equals("1234")) {
-            //id, pwd 값을 서블릿에서 JSP 페이지로 데이터 전달
-            request.setAttribute("id", id);
-            request.setAttribute("pwd", pwd);
             //id, pwd 일치하면 jsp 페이지로 이동
             request.getRequestDispatcher("/userInfo.jsp").forward(request, response);
 
