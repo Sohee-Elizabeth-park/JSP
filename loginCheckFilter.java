@@ -1,32 +1,32 @@
 package com.example.servlet04;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.FilterChain;
 
-@WebFilter("/protected/*")
 public class loginCheckFilter implements Filter {
     //filter 기능 수행, chain 이용 -> 체인의 다음 필터로 처리 전달 가능
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        // 세션에서 로그인 여부를 확인
-        HttpSession session = ((HttpServletRequest) request).getSession();
-        boolean loggedIn = session.getAttribute("loggedIn") != null;
-
-        if (loggedIn) {
-            // 사용자가 로그인한 경우 요청을 계속 진행시킴
-            chain.doFilter(request, response);
-        } else {
-            // 사용자가 로그인하지 않은 경우 로그인 페이지로 리디렉션
-            ((HttpServletResponse) response).sendRedirect(request.getServletContext().getContextPath() + "/loginForm.jsp");
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("authUser") == null) {
+            HttpServletResponse response = (HttpServletResponse) res;
+            response.sendRedirect(request.getContextPath() + "/login.do");
+        } else{
+            chain.doFilter(req, res);
         }
     }
+
+
 
 
     @Override
