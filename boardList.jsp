@@ -11,16 +11,9 @@
     <title>boardList</title>
 </head>
 <body>
-<div id="menu">
-    <ul>
-        <li id="logo">Happy Sohee :)</li>
-        <li><a href="index.jsp">Home</a></li>
-        <li><a href="BoardController">Board</a></li>
-        <li><a href="LoginController">Login</a></li>
-        <li><a href="LogoutController">Logout</a></li>
-        <li><a href="">Sign in</a></li>
-    </ul>
-</div>
+
+<jsp:include page="menu.jsp" flush="false"></jsp:include>
+
 <div style="text-align: center">
     <h1>This is BOARD</h1>
     <h1>This is BOARD</h1>
